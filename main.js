@@ -32,5 +32,17 @@ const url = 'https://music.163.com/#/user/songs/rank?id=400271789';
 
     await browser.close();
 
-    console.log(JSON.stringify(result));
+    console.log(JSON.stringify({ 'time': currentTime(), 'data': result, 'total': result.length }));
 })();
+
+function currentTime() {
+    function format(value) {
+        if (value < 10) {
+            value = '0' + value;
+        }
+        return value;
+    }
+    let now = new Date();
+    return now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+        + ' ' + format(now.getHours()) + ':' + format(now.getMinutes()) + ':' + format(now.getSeconds());
+}
