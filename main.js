@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const CronJob = require('cron').CronJob;
 
-new CronJob('0 * * * * *', function () {
+new CronJob('0 30 * * * *', function () {
     const url = 'https://music.163.com/#/user/songs/rank?id=400271789';
 
     (async () => {
@@ -27,14 +27,14 @@ new CronJob('0 * * * * *', function () {
                 let href = a.getAttribute('href');
                 let id = href.split('id=')[1];
                 let name = a.innerText;
-                data.push({ 'id': id, 'name': name });
+                data.push({'id': id, 'name': name});
             }
             return data;
         });
 
         await browser.close();
 
-        console.log(JSON.stringify({ 'time': currentTime(), 'data': result, 'total': result.length }));
+        console.log(JSON.stringify({'time': currentTime(), 'data': result, 'total': result.length}));
     })();
 
     function currentTime() {
@@ -44,6 +44,7 @@ new CronJob('0 * * * * *', function () {
             }
             return value;
         }
+
         let now = new Date();
         return now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
             + ' ' + format(now.getHours()) + ':' + format(now.getMinutes()) + ':' + format(now.getSeconds());
